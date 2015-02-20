@@ -1,5 +1,7 @@
 module.exports = function() {
-    var inflection = window ? window.inflection : require('inflection');
+  var getInflection = function () {
+      return window ? window.inflection : require('inflection');
+  };
     var angular = window ? window.angular : require('angular');
     var module = angular.module('ngInflection', []);
 
@@ -7,7 +9,7 @@ module.exports = function() {
     	return function() {
 	        return function(inp) {
 	            if (inp) {
-	                return inflection[op].apply(this, arguments);
+	                return getInflection()[op].apply(this, arguments);
 	            }
 	        };
     	};
@@ -38,7 +40,7 @@ module.exports = function() {
     module.filter('transform', function () {
 		return function(string,arr) {
 			if (string && arr) {
-				return inflection.transform(string, arr);
+				return getInflection().transform(string, arr);
 			}
 		};
 	});
